@@ -1,3 +1,4 @@
+/*updated*/
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
@@ -184,9 +185,58 @@ a {
     font-family: 'Karla', sans-serif;
 }
 
-/* 768 */
+/* 1250 */
 
-@media(max-width:1250px) {
+@media (max-width :1250px){
+    #search{
+        height: 50px;
+        width: 70vw;
+        border-radius: 100px;
+        flex: 8;
+        margin-left: 100px;
+        border: 0;
+        background-color: antiquewhite;
+        border: 2px solid black;
+        font-family: 'Karla', sans-serif;
+        padding-left: 15px;
+        font-size: 15px;
+    }
+    #button{
+        margin-top: 10px;
+        margin-left: 65px;
+        /* padding: 11px; */
+        font-size: 0.7rem;
+        border-radius: 50px;
+        flex: 2;
+        width: 25vw;
+        height: 50px;
+        border: 0;
+        border: 2px solid black;
+        font-family: 'Karla', sans-serif;
+        font-weight: bold;
+    }
+
+    .main{
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: center;
+        align-items: center;
+        margin-top: -5px;
+        margin-left: 1px;
+        width: 100%;
+        /* background-color: #d76eec; */
+        
+    }
+    .surch{
+        margin-left: -100px;
+    }
+    .butt{
+        margin-top: -12px;
+        margin-left: -60px;
+    }
+}
+
+@media(max-width:768px) {
     .hamburger {
         display: block;
     }
