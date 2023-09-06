@@ -244,6 +244,9 @@ background-image: linear-gradient(-45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
     .login{
         margin-top: -50px;
     }
+    .registration{
+        margin-top: -50px;
+    }
     #input-email,#input-password{
         width: 85vw;
         margin-left: -20px;
