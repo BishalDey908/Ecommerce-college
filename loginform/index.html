@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin page</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+  <div class="top-heading">
+    <h1>Welcome</h1> 
+    <h2><span id="type"></span></h2>
+    </div>
+    <div class="container">
+      <p class="message"></p>
+        <div class="login">
+            <form action="">
+                <h1 >Log-In</h1>
+                <input type="email" id="input-email" class="logInEmail" placeholder="Enter email" required>
+                <br>
+                <div class="password">
+                <input type="password" id="input-password" class="logInPassword" placeholder="Enter Password" required>
+                <i class="fa-solid fa-eye fa-2xl" id="eye"></i>
+                <i class="fa-solid fa-eye-slash fa-2xl" id="eye1" ></i>
+                </div>
+                <br>
+                <input type="submit" value="Log-In" id="input-submit" class="log-in"> 
+                <!-- <button >Sign-in</button> -->
+            </form>
+            <p>Don't have an account? <b class="signin"><u>Sign-in</u></b></p>
+        </div>
+
+
+        <div class="registration">
+            <form action="">
+                <h1>Sign-In</h1>
+                <input type="email" id="input-email" class="signInEmail" placeholder="Enter email" required>
+                <br>
+                <div class="password">
+                <input type="password" id="input-password" class="signInPassword" placeholder="Enter Password" required>
+                <i class="fa-solid fa-eye fa-2xl" id="ey"></i>
+                <i class="fa-solid fa-eye-slash fa-2xl" id="ey1"></i>
+                </div>
+                <br>
+                <!-- <input type="submit" value="Log-in" id="input-submit" > -->
+                <button id="sign-in">Sign-In</button>
+            </form>
+            <p>Have an account? <b id="log"><u>Login</u></b></p>
+        </div>
+    </div>
+ 
+    <div class="heading">
+    <h1>Welcome</h1> 
+    <h2><span id="typewriter"></span></h2>
+    </div>
+
+
+    <div id="particles-js"></div>
+    <script src="./particles.js"></script>
+    <script src="./app.js"></script>
+
+
+
+    <script type="module">
+        //sdgdfgdfgfdgd
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"; //10.3.1
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+        import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword, signOut} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyDW_2lgsYUg3DzhF_FeBsEMxS-W2ldCNdA",
+          authDomain: "ecommerce-358d0.firebaseapp.com",
+          projectId: "ecommerce-358d0",
+          storageBucket: "ecommerce-358d0.appspot.com",
+          messagingSenderId: "49037511732",
+          appId: "1:49037511732:web:ec3ca8b0686e9140198e61",
+          measurementId: "G-85ZX6LZS99"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        //console.log(app)
+
+        const auth = getAuth();
+
+        // -----------------------------------code start--------------------- 
+        
+         //----- New Registration code start	  
+	  document.querySelector("#sign-in").addEventListener("click", function(sign) {
+        sign.preventDefault()
+        var email =  document.querySelector(".signInEmail").value;
+        var password = document.querySelector(".signInPassword").value;
+        //For new registration
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          console.log(user);
+          document.querySelector(".message").innerHTML="Registration Successful!!"
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          console.log(errorCode)
+          const errorMessage = error.message;
+          // ..
+          console.log(errorMessage);
+          //alert(error);
+          if(errorCode==="auth/weak-password"){
+            document.querySelector(".message").innerHTML="Weak Password!!"
+          }
+          if(errorCode==="auth/email-already-in-use"){
+            document.querySelector(".message").innerHTML="Already Registered!! Please Log-In"
+          }
+        });		  		  
+    });
+    //----- End
+
+    //----- Login code start	  
+    document.querySelector(".log-in").addEventListener("click", function(log) {
+        log.preventDefault()
+        var email =  document.querySelector(".logInEmail").value;
+        var password = document.querySelector(".logInPassword").value;
+        console.log(email)
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          console.log(user);
+          //alert(user.email+" Login successfully!!!");
+          document.querySelector(".message").innerHTML="Login Successful!!"
+          // ...
+           let open= user.uid
+           if(open!=null){
+            setTimeout(()=>{
+              window.location="p.html"
+            },1100)
+           }
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorMessage);
+          //alert(errorMessage);
+          if(errorCode==="auth/wrong-password")
+          {
+          document.querySelector(".message").innerHTML="Incorrect password !!"
+          }
+          else if(errorCode==="auth/user-not-found")
+          {
+          document.querySelector(".message").innerHTML="Incorrect Email"
+          }
+          else{
+            document.querySelector(".message").innerHTML="Incorrect Email and Password"
+          }
+        });		  		  
+    });
+    //----- End
+       
+    //-----------------------------------------------code end------------------------------
+
+    </script>
+
+    <script src="app1.js"></script>
+
+
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed("#typewriter", {
+            strings: ["To Potter", "A E-Commerce Website", "Best prise"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        })
+
+        var typed = new Typed("#type", {
+            strings: ["To Potter", "A E-Commerce Website", "Best prise"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        })
+
+    </script>
+</body>
+</html>
